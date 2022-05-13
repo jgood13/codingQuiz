@@ -1,5 +1,4 @@
-var buttonsdiv = document.querySelector(".start");
-var rulesBox = document.querySelector(".startBtn");
+var rulesBox = document.querySelector(".rulesBox");
 var startBtn = document.querySelector(".start #start");
 var quizBox = document.querySelector(".quizBox");
 var resultBox = document.querySelector(".resultBox")
@@ -7,7 +6,7 @@ var countdown= document.querySelector (".timer .countdown")
 var answers = document.querySelector (".answers")
 
 
-var questions = [
+let questions = [
     {
     number: 1,
     question: "What does HTML stand for?",
@@ -43,7 +42,7 @@ var questions = [
     {
     number: 4,
     question: "jQuery is a library for which language?",
-    answer: "Structured Query Language",
+    answer: "Javascript",
     options: [
       "HTML",
       "CSS",
@@ -61,7 +60,43 @@ var questions = [
       "Css"
     ]},];
 
-    startBtn.onclick = ()=>{
-        rulesBox.classList.add("hideRules");
+function  startFunction(){
+        rulesBox.style = "opacity: 0%";
         quizBox.classList.add("showQuiz");
+        showQuestions(0);
     }
+
+
+var time = 60
+var questionNum = 0;
+var restart = resultBox.querySelector(".resultBox .restart");
+
+restart.onclick =()=>{
+        quizBox.classList.add("showQuiz");
+        resultBox.classList.remove("showResult")
+        time = 60;
+        questionNum = 0;
+    }
+console.log(questions[0].question)
+
+
+
+function showQuestions(index) {
+    const questionTag = document.querySelector(".questions");
+  
+    let askQuestions = '<span>'+ questions[index].question + '</span>';
+    let askOptions = '<div class="option"><span>'+ questions[index].options[0] + '<span></div>' +
+        '<div class="option"><span>' + questions[index].options[1] + '<span></div>' + 
+        '<div class="option"><span>' + questions[index].options[2] + '<span></div>' +
+        '<div class="option"><span>' + questions[index].options[3] + '<span></div>';
+        questionTag.innerHTML = askQuestions;
+        answers.innerHTML = askOptions;
+
+    var option = document.querySelector(".option");
+
+    for (i=0; i < option.length; i++){
+            option[i].setAttribute("onclick", "pickOption(this)"); 
+    }
+    }
+
+   
