@@ -1,9 +1,12 @@
 var rulesBox = document.querySelector(".rulesBox");
 var startBtn = document.querySelector(".start #start");
 var quizBox = document.querySelector(".quizBox");
-var resultBox = document.querySelector(".resultBox")
-var countdown= document.querySelector (".timer .countdown")
-var answers = document.querySelector (".answers")
+var resultBox = document.querySelector(".resultBox");
+var countdown= document.querySelector (".timer .countdown");
+var answers = document.querySelector (".answers");
+var nextButton = document.querySelector (".nextButton");
+var userScore = document.querySelector(".score");
+
 
 
 let questions = [
@@ -12,8 +15,8 @@ let questions = [
     question: "What does HTML stand for?",
     answer: "Hyper Text Markup Language",
     options: [
-      "Hyper Text Math Language",
-      "Hyper Tool Markup Language",
+      "Hyper Text Markup Language",
+      "Hyper Tool Math Language",
       "Hyper Text Mini Language",
       "Hyper Tool Multi Language"
     ]},
@@ -60,43 +63,91 @@ let questions = [
       "Css"
     ]},];
 
-function  startFunction(){
-        rulesBox.style = "opacity: 0%";
-        quizBox.classList.add("showQuiz");
-        showQuestions(0);
-    }
-
-
 var time = 60
 var questionNum = 0;
 var restart = resultBox.querySelector(".resultBox .restart");
 
-restart.onclick =()=>{
+    
+
+function  startFunction(){
+        rulesBox.style = "opacity: 0%";
         quizBox.classList.add("showQuiz");
-        resultBox.classList.remove("showResult")
-        time = 60;
-        questionNum = 0;
+        showQuestions(0);
+        startTimer(time);
+        countdown.innerHTML = time;
     }
-console.log(questions[0].question)
 
 
 
 function showQuestions(index) {
     const questionTag = document.querySelector(".questions");
   
-    let askQuestions = '<span>'+ questions[index].question + '</span>';
-    let askOptions = '<div class="option"><span>'+ questions[index].options[0] + '<span></div>' +
-        '<div class="option"><span>' + questions[index].options[1] + '<span></div>' + 
-        '<div class="option"><span>' + questions[index].options[2] + '<span></div>' +
-        '<div class="option"><span>' + questions[index].options[3] + '<span></div>';
+    let askQuestions = '<h1>'+ questions[index].question + '</h1>';
+    let askOptions = '<div class="option" ><p>'+ questions[index].options[0] + '</p></div>' +
+        '<div class="option"><p>' + questions[index].options[1] + '</p></div>' + 
+        '<div class="option"><p>' + questions[index].options[2] + '</p></div>' +
+        '<div class="option"><p>' + questions[index].options[3] + '</p></div>';
         questionTag.innerHTML = askQuestions;
         answers.innerHTML = askOptions;
 
-    var option = document.querySelector(".option");
+    var option = document.querySelectorAll(".option");
 
     for (i=0; i < option.length; i++){
-            option[i].setAttribute("onclick", "pickOption(this)"); 
-    }
-    }
+            option[i].setAttribute("onclick", "pickOption(this)"); }
+};
 
+function startTimer(){
+    var timeLeft = setInterval(function() {
+        if (time > 1){
+            time--;
+            countdown.textContent = time;
+        } else{
+            clearInterval(timeLeft)
+            countdown.textContent = '0';
+            showResults();
+        }
+    }, 1000);
    
+};
+
+function pickOption(option){
+    var userAnswer = option.textContent;
+    var correctAnswer = questions[questionNum].answer;
+
+    if (userAnswer == correctAnswer){
+        nextQuestion();
+    } else {
+        time -= 10;
+        nextQuestion();
+    }
+};
+
+function showResults(){
+    quizBox.classList.remove("showQuiz");
+    resultBox.classList.add("showResult");
+    userScore.innerHTML = "Your score is " + time;
+    countdown.textContent = '';
+}
+
+function nextQuestion(){
+    if (questionNum < questions.length - 1){
+        questionNum++;
+        showQuestions(questionNum);
+
+    } else{
+        showResults();
+    }
+};
+
+restart.onclick =()=>{
+    quizBox.classList.add("showQuiz");
+    resultBox.classList.remove("showResult")
+    time = 60;
+    questionNum = 0;
+    showQuestions(questionNum);
+    startTimer(time);
+}
+
+
+
+

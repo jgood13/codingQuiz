@@ -1,0 +1,146 @@
+body {
+    background: #A9E5BB;
+}
+ 
+ 
+.rulesBox,
+.quizBox,
+.resultBox{
+    position: absolute;
+    left:30%;
+    top:30%;
+}
+ 
+.rulesBox{
+    width: 40%;
+    background: #fff;
+    border-radius: 5px;
+}
+ 
+.rulesBox .rulesTitle{
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 0 30px;
+    border-radius: 5px 5px 0 0;
+    font-size: 30px;
+    font-weight: 700;
+    background-color: #004085;
+    color: #A9E5BB;
+}
+
+#start{
+    background-color: #F7B32B;
+    font-size: 20px;
+    font-weight: 600;
+    margin-left: 40%;
+}
+
+.nextButton {
+    background-color: #F7B32B;
+    font-size: 20px;
+    font-weight: 600;
+    margin-left: 33%;
+}
+ 
+.rulesBox .rulesList{
+    padding: 15px 30px;
+}
+ 
+.rulesBox .rulesList .rules{
+    margin: 5px 0;
+    font-size: 17px;
+}
+
+.timer .countdown {
+    font-size: 40px;
+    font-weight: 600;
+}
+
+.quizBox button{
+    align-items: center;
+}
+
+ .quizBox.showQuiz,
+ .resultBox.showResult {
+     opacity: 100%;
+ }
+
+ 
+.quizBox{
+    width: 500px;
+    background: #fff;
+    border-radius: 5px;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.quizBox .answers .option:hover{
+    background: #b8daff;
+}
+
+
+ 
+.timer{
+    color: #004085;
+    background: #cce5ff;
+    border: 1px solid #b8daff;
+    height: 45px;
+    padding: 0 8px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 145px;
+    position: absolute;
+    top: 0%;
+    right:0%;
+}
+ 
+
+
+section .questions{
+    font-size: 25px;
+    font-weight: 600;
+    background-color: #004085;
+    color: white
+}
+ 
+section .answers{
+    padding: 20px 0;
+    display: block;   
+    background-color: #F7B32B;
+    border: 2px solid #FCF6B1;
+    margin-bottom:15px;
+}
+section .answers .option{
+    margin: 20px 0;
+}
+ 
+.resultBox{
+    background: #fff;
+    border-radius: 5px;
+    display: flex;
+    padding: 25px 30px;
+    width: 450px;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    opacity: 0;
+}
+
+
+ 
+.resultBox button{
+    margin: 0 10px;
+    height: 45px;
+    padding: 0 20px;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    outline: none;
+    border-radius: 5px;
+}
+ 
+
+ 
