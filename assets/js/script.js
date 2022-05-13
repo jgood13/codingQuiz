@@ -9,7 +9,7 @@ var userScore = document.querySelector(".score");
 
 
 
-let questions = [
+var questions = [
     {
     number: 1,
     question: "What does HTML stand for?",
@@ -96,18 +96,19 @@ function showQuestions(index) {
             option[i].setAttribute("onclick", "pickOption(this)"); }
 };
 
+
+
 function startTimer(){
     var timeLeft = setInterval(function() {
-        if (time > 1){
+        if (time > 0){
             time--;
             countdown.textContent = time;
-        } else{
+        } else {
             clearInterval(timeLeft)
             countdown.textContent = '0';
             showResults();
         }
     }, 1000);
-   
 };
 
 function pickOption(option){
@@ -122,13 +123,6 @@ function pickOption(option){
     }
 };
 
-function showResults(){
-    quizBox.classList.remove("showQuiz");
-    resultBox.classList.add("showResult");
-    userScore.innerHTML = "Your score is " + time;
-    countdown.textContent = '';
-}
-
 function nextQuestion(){
     if (questionNum < questions.length - 1){
         questionNum++;
@@ -138,6 +132,16 @@ function nextQuestion(){
         showResults();
     }
 };
+
+
+function showResults(){
+    quizBox.classList.remove("showQuiz");
+    resultBox.classList.add("showResult");
+    userScore.innerHTML = "Your score is " + time;
+    countdown.textContent = '';
+}
+
+
 
 restart.onclick =()=>{
     quizBox.classList.add("showQuiz");
