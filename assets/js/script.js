@@ -10,56 +10,48 @@ var leaderboard = document.querySelector(".leaderboard")
 var restart = resultBox.querySelector(".resultBox .restart");
 var time = 60
 var questionNum = 0;
+var timeLeft;
 
 var questions = [
     {
-    number: 1,
     question: "What does HTML stand for?",
     answer: "Hyper Text Markup Language",
-    options: [
-      "Hyper Text Markup Language",
+    options: ["Hyper Text Markup Language",
       "Hyper Tool Math Language",
       "Hyper Text Mini Language",
       "Hyper Tool Multi Language"
     ]},
 
     {
-    number: 2,
     question: "What does CSS stand for?",
     answer: "Cascading Style Sheet",
-    options: [
-      "Cascading Style Sheet",
+    options: ["Cascading Style Sheet",
       "Controlled Style Sheet",
       "Calculated Style Sheet",
       "Configured Style Sheet"
     ]},
 
     {
-    number: 3,
     question: "What does API stand for?",
     answer: "Application Programming Interface",
-    options: [
-      "Add-on Program Interface",
+    options: ["Add-on Program Interface",
       "Application Programming Interface",
       "Apple Programming Interface",
       "Anti Programming Interface"
     ]},
     {
-    number: 4,
     question: "jQuery is a library for which language?",
     answer: "Javascript",
-    options: [
-      "HTML",
+    options: ["HTML",
       "CSS",
       "Python",
       "Javascript"
     ]},
     {
-    number: 5,
+
     question: "Which language is not covered in this course?",
     answer: "Python",
-    options: [
-      "HTML",
+    options: ["HTML",
       "Javascript",
       "Python",
       "Css"
@@ -75,15 +67,14 @@ function  startFunction(){
     }
 
 
-
 function showQuestions(index) {
     const questionTag = document.querySelector(".questions");
   
     let askQuestions = '<h1>'+ questions[index].question + '</h1>';
-    let askOptions = '<div class="option" ><p>'+ questions[index].options[0] + '</p></div>' +
-        '<div class="option"><p>' + questions[index].options[1] + '</p></div>' + 
-        '<div class="option"><p>' + questions[index].options[2] + '</p></div>' +
-        '<div class="option"><p>' + questions[index].options[3] + '</p></div>';
+    let askOptions = '<p class="option">'+ questions[index].options[0] + '</p>' +
+        '<p class="option">' + questions[index].options[1] + '</p>' + 
+        '<p class="option">' + questions[index].options[2] + '</p>' +
+        '<p class="option">' + questions[index].options[3] + '</p>';
         questionTag.innerHTML = askQuestions;
         answers.innerHTML = askOptions;
 
@@ -94,14 +85,14 @@ function showQuestions(index) {
 };
 
 function startTimer(){
-        var timeLeft = setInterval(function() {
+        timeLeft = setInterval(function() {
         if (time > 0){
             time--;
             countdown.textContent = time;
-        } else if(time > 0 && userScore > 0){
+        // } else if(time > 0 && userScore > 0){
             
-            clearInterval(timeLeft);
-            showResults();
+        //     clearInterval(timeLeft);
+        //     showResults();
         } else {
             clearInterval(timeLeft)
             countdown.textContent = '0';
@@ -117,8 +108,10 @@ function pickOption(option){
     var correctAnswer = questions[questionNum].answer;
 
     if (userAnswer == correctAnswer){
+        alert("You answered this question right!")
         nextQuestion();
     } else {
+        alert("You answered this question wrong!")
         time -= 10;
         nextQuestion();
     }
@@ -135,6 +128,7 @@ function nextQuestion(){
 };
 
 function showResults(){
+    clearInterval(timeLeft)
     quizBox.classList.remove("showQuiz");
     resultBox.classList.add("showResult");
     userScore.innerHTML = "Your score is " + time;
@@ -168,8 +162,11 @@ function saveScore(){
 
 function renderScore() {
     var currentScores = JSON.parse(localStorage.getItem('scores'))
-    for (i=0; i < currentScores.length - 1; i++){
-    document.querySelector(".leaderboard").textContent = currentScores[i]
+    leaderboard.innerHTML= ''
+    for (i=0; i < currentScores.length; i++){
+        let newScore = document.createElement("div")
+        newScore.textContent = currentScores[i].initals + ": " + currentScores[i].score
+        leaderboard.append(newScore)
     }  
 }
 

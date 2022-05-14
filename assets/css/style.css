@@ -12,7 +12,7 @@ body {
  
 .rulesBox{
     width: 40%;
-    background-color: white;
+    background-color: darkslategrey;
     border-radius: 5px;
 }
  
@@ -26,6 +26,11 @@ body {
     font-weight: 700;
     background-color: #004085;
     color: #A9E5BB;
+}
+
+.rulesList{
+    color: whitesmoke;
+    font-weight: 600;
 }
 
 #start{
@@ -58,8 +63,8 @@ body {
 }
 
 .quizBox{
-    width: 500px;
-    background: black;
+    width: 30%;
+    background-color: darkslategrey;
     border-radius: 5px;
     display: none;
     cursor: pointer;
@@ -73,7 +78,8 @@ body {
 }
 
 .quizBox.showQuiz {
-     display: block;
+     display: flex;
+     flex:column;
  }
 
 .resultBox.showResult{
@@ -87,8 +93,6 @@ body {
     color: white
 }
 
-
- 
 .timer{
     color: blue;
     background-color: #F7B32B;
@@ -103,35 +107,36 @@ body {
     right:0%;
 }
  
-
-
 section .questions{
     font-size: 25px;
     font-weight: 600;
     background-color: #004085;
-    color: white
+    color: white;
+    padding-left:20px;
 }
  
 section .answers{
-    padding: 20px 0;
+    padding: 20px 0 0 20px;
     display: block;   
     background-color: #F7B32B;
     border: 2px solid #FCF6B1;
     margin-bottom:15px;
 }
 
+section .answers .option{
+    font-weight: 600;
+}
+
 .resultBox{
-    background: #fff;
+    background: darkslategray;
     border-radius: 5px;
     display: flex;
     padding: 25px 30px;
-    width: 450px;
+    width: 30%;
     align-items: center;
     display:none;
 }
 
-
- 
 .resultBox button{
     margin: 0 10px;
     height: 45px;
@@ -141,30 +146,41 @@ section .answers{
     cursor: pointer;
     outline: none;
     border-radius: 5px;
+    background: whitesmoke;
 }
  
 .score{
     font-size: large;
     font-weight: 600;
-    color: blue;
+    color: whitesmoke;
     margin-bottom: 20px;
 }
 
 .bottom{
-    background: white;
+    background: black;
     position: absolute;
     left: 35%;
     bottom: 5%;
-    width: 500px;
+    width: 30%;
     height: 20%;
     border: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 5px;
+    overflow: scroll;
 }
 
 .bottom h1{
     color: brown;
-    font-size: large;
+    font-size: x-large;
     font-weight: 600;
     text-align: center;
     border-bottom: 3px solid burlywood;
+}
+
+.leaderboard{
+    color:whitesmoke;
+
 }
  
