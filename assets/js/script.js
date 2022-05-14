@@ -6,8 +6,10 @@ var countdown= document.querySelector (".timer .countdown");
 var answers = document.querySelector (".answers");
 var nextButton = document.querySelector (".nextButton");
 var userScore = document.querySelector(".score");
-
-
+var leaderboard = document.querySelector(".leaderboard")
+var restart = resultBox.querySelector(".resultBox .restart");
+var time = 60
+var questionNum = 0;
 
 var questions = [
     {
@@ -63,14 +65,9 @@ var questions = [
       "Css"
     ]},];
 
-var time = 60
-var questionNum = 0;
-var restart = resultBox.querySelector(".resultBox .restart");
-
-    
-
 function  startFunction(){
-        rulesBox.style = "opacity: 0%";
+        time = 60;
+        rulesBox.style = "display: none";
         quizBox.classList.add("showQuiz");
         showQuestions(0);
         startTimer(time);
@@ -96,17 +93,21 @@ function showQuestions(index) {
             option[i].setAttribute("onclick", "pickOption(this)"); }
 };
 
-
-
 function startTimer(){
-    var timeLeft = setInterval(function() {
+        var timeLeft = setInterval(function() {
         if (time > 0){
             time--;
             countdown.textContent = time;
+        } else if(time > 0 && userScore > 0){
+            
+            clearInterval(timeLeft);
+            showResults();
         } else {
             clearInterval(timeLeft)
             countdown.textContent = '0';
-            showResults();
+            quizBox.classList.remove("showQuiz")
+            rulesBox.setAttribute("style", "display:block")
+            alert("You ran out of time! Try again.")
         }
     }, 1000);
 };
@@ -133,15 +134,13 @@ function nextQuestion(){
     }
 };
 
-
 function showResults(){
     quizBox.classList.remove("showQuiz");
     resultBox.classList.add("showResult");
     userScore.innerHTML = "Your score is " + time;
     countdown.textContent = '';
+    saveScore();
 }
-
-
 
 restart.onclick =()=>{
     quizBox.classList.add("showQuiz");
@@ -152,6 +151,26 @@ restart.onclick =()=>{
     startTimer(time);
 }
 
+function saveScore(){
+    var currentScore = JSON.parse(localStorage.getItem('scores')) || []
+    var userinfo = prompt("Please enter your initials")
+    var score = userScore.innerHTML
+    var userobj ={
+        initals: userinfo,
+        score: score
+    }
+    currentScore.push(userobj)
 
+    localStorage.setItem('scores', JSON.stringify(currentScore))
 
+    renderScore();
+};
 
+function renderScore() {
+    var currentScores = JSON.parse(localStorage.getItem('scores'))
+    for (i=0; i < currentScores.length - 1; i++){
+    document.querySelector(".leaderboard").textContent = currentScores[i]
+    }  
+}
+
+renderScore();
