@@ -12,6 +12,7 @@ var time = 60
 var questionNum = 0;
 var timeLeft;
 
+// object used for quiz questions/options/answers
 var questions = [
     {
     question: "What does HTML stand for?",
@@ -57,6 +58,7 @@ var questions = [
       "Css"
     ]},];
 
+    // Start button
 function  startFunction(){
         time = 60;
         rulesBox.style = "display: none";
@@ -66,6 +68,9 @@ function  startFunction(){
         countdown.innerHTML = time;
     }
 
+function init(){
+    renderScore()
+}
 
 function showQuestions(index) {
     const questionTag = document.querySelector(".questions");
@@ -84,15 +89,12 @@ function showQuestions(index) {
             option[i].setAttribute("onclick", "pickOption(this)"); }
 };
 
+// Timer starts with start button.
 function startTimer(){
         timeLeft = setInterval(function() {
         if (time > 0){
             time--;
             countdown.textContent = time;
-        // } else if(time > 0 && userScore > 0){
-            
-        //     clearInterval(timeLeft);
-        //     showResults();
         } else {
             clearInterval(timeLeft)
             countdown.textContent = '0';
@@ -103,12 +105,13 @@ function startTimer(){
     }, 1000);
 };
 
+// alerts telling you if you were correct or not.
 function pickOption(option){
     var userAnswer = option.textContent;
     var correctAnswer = questions[questionNum].answer;
 
     if (userAnswer == correctAnswer){
-        alert("You answered this question right!")
+        alert("You answered this question!")
         nextQuestion();
     } else {
         alert("You answered this question wrong!")
@@ -117,6 +120,7 @@ function pickOption(option){
     }
 };
 
+// Happens when you select your option. -10 seconds for wrong answer
 function nextQuestion(){
     if (questionNum < questions.length - 1){
         questionNum++;
@@ -145,6 +149,7 @@ restart.onclick =()=>{
     startTimer(time);
 }
 
+// Saves to local storage
 function saveScore(){
     var currentScore = JSON.parse(localStorage.getItem('scores')) || []
     var userinfo = prompt("Please enter your initials")
@@ -160,6 +165,7 @@ function saveScore(){
     renderScore();
 };
 
+// Prints local storage to page
 function renderScore() {
     var currentScores = JSON.parse(localStorage.getItem('scores'))
     leaderboard.innerHTML= ''
@@ -170,4 +176,4 @@ function renderScore() {
     }  
 }
 
-renderScore();
+renderScore()
