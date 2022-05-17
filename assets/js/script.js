@@ -111,7 +111,7 @@ function pickOption(option){
     var correctAnswer = questions[questionNum].answer;
 
     if (userAnswer == correctAnswer){
-        alert("You answered this question!")
+        alert("You answered this question correctly!")
         nextQuestion();
     } else {
         alert("You answered this question wrong!")
@@ -140,7 +140,7 @@ function showResults(){
     saveScore();
 }
 
-restart.onclick =()=>{
+function restart1(){
     quizBox.classList.add("showQuiz");
     resultBox.classList.remove("showResult")
     time = 60;
